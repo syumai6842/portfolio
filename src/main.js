@@ -43,14 +43,19 @@ let mixer = null;
 let clock = new THREE.Clock();
 
 // カメラアニメーション用
-let currentSection = 0;
-const sections = ['hero', 'about', 'skills', 'projects', 'contact'];
-const cameraPositions = [
-  { x: 0, y: 1, z: 5 },
-  { x: 3, y: 1.5, z: 4 },
-  { x: -3, y: 1.5, z: 4 },
-  { x: 0, y: 2, z: 3.5 },
-  { x: 0, y: 1, z: 5 }
+const cameraData = {
+  position: new THREE.Vector3(0, 1, 5),
+  target: new THREE.Vector3(0, 1, 0),
+  currentSection: 0
+};
+
+// セクションごとのカメラ設定
+const sectionCameraConfigs = [
+  { position: { x: 0, y: 1, z: 5 }, target: { x: 0, y: 1, z: 0 } },
+  { position: { x: 3, y: 1.5, z: 4 }, target: { x: 0, y: 1, z: 0 } },
+  { position: { x: -3, y: 1.5, z: 4 }, target: { x: 0, y: 1, z: 0 } },
+  { position: { x: 0, y: 2, z: 3.5 }, target: { x: 0, y: 1.5, z: 0 } },
+  { position: { x: 0, y: 1, z: 5 }, target: { x: 0, y: 1, z: 0 } }
 ];
 
 // モデル読み込み
@@ -94,20 +99,21 @@ async function loadModel(path) {
       action.play();
     }
 
-    // モデル出現アニメーション
-    gsap.from(currentPivot.scale, {
-      x: 0,
-      y: 0,
-      z: 0,
-      duration: 1.5,
-      ease: 'back.out(1.7)'
-    });
-
-    gsap.from(currentPivot.rotation, {
-      y: Math.PI * 2,
-      duration: 2,
-      ease: 'power3.out'
-    });
+    // モデル出現アニメーション（Timeline使用）
+    const modelTimeline = gsap.timeline();
+    modelTimeline
+      .from(currentPivot.scale, {
+        x: 0,
+        y: 0,
+        z: 0,
+        duration: 1.5,
+        ease: 'back.out(1.7)'
+      })
+      .from(currentPivot.rotation, {
+        y: Math.PI * 2,
+        duration: 2,
+        ease: 'power3.out'
+      }, '-=1');
 
     return true;
   } catch (e) {
@@ -151,6 +157,9 @@ function animate() {
     currentPivot.position.y = 1 + Math.sin(time * 0.4) * 0.1;
   }
 
+  // カメラのターゲットを追従
+  camera.lookAt(cameraData.target);
+
   renderer.render(scene, camera);
 }
 animate();
@@ -159,180 +168,167 @@ animate();
 loadModel('/models/Drowning_human.glb');
 
 // ============================================
-// GSAP アニメーションシステム
+// GSAP アニメーションシステム（prty.jpスタイル）
 // ============================================
 
 // セクション要素の取得
+const sections = ['hero', 'about', 'skills', 'projects', 'contact'];
 const sectionElements = document.querySelectorAll('.fullscreen-section');
-let isScrolling = false;
 
-// 現在のセクションインデックスを取得
-function getCurrentSectionIndex() {
-  const scrollPosition = window.scrollY + window.innerHeight / 2;
-  let currentIndex = 0;
+// カメラアニメーション関数
+function animateCameraToSection(index) {
+  if (index < 0 || index >= sectionCameraConfigs.length) return;
   
-  sectionElements.forEach((section, index) => {
-    const sectionTop = section.offsetTop;
-    const sectionBottom = sectionTop + section.offsetHeight;
-    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-      currentIndex = index;
-    }
-  });
+  const config = sectionCameraConfigs[index];
+  const timeline = gsap.timeline();
   
-  return currentIndex;
-}
-
-// カメラをセクションに応じて移動
-function updateCamera(sectionIndex) {
-  if (sectionIndex < 0 || sectionIndex >= cameraPositions.length) return;
+  timeline
+    .to(camera.position, {
+      x: config.position.x,
+      y: config.position.y,
+      z: config.position.z,
+      duration: 1.5,
+      ease: 'power3.inOut'
+    })
+    .to(cameraData.target, {
+      x: config.target.x,
+      y: config.target.y,
+      z: config.target.z,
+      duration: 1.5,
+      ease: 'power3.inOut'
+    }, '-=1.5');
   
-  const targetPos = cameraPositions[sectionIndex];
-  gsap.to(camera.position, {
-    x: targetPos.x,
-    y: targetPos.y,
-    z: targetPos.z,
-    duration: 1.5,
-    ease: 'power3.inOut'
-  });
-
   // モデルの回転アニメーション
   if (currentPivot) {
     gsap.to(currentPivot.rotation, {
-      y: sectionIndex * Math.PI * 0.5,
+      y: index * Math.PI * 0.5,
       duration: 1.5,
       ease: 'power3.inOut'
     });
   }
-
-  currentSection = sectionIndex;
+  
+  cameraData.currentSection = index;
 }
 
-// スナップスクロールの実装
-let scrollTimeout;
-let lastScrollTime = 0;
-
-window.addEventListener('wheel', (e) => {
-  if (isScrolling) return;
-  
-  const now = Date.now();
-  if (now - lastScrollTime < 100) return;
-  lastScrollTime = now;
-  
-  const currentIndex = getCurrentSectionIndex();
-  
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => {
-    if (e.deltaY > 0 && currentIndex < sections.length - 1) {
-      isScrolling = true;
-      const nextSection = document.getElementById(sections[currentIndex + 1]);
-      if (nextSection) {
-        nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setTimeout(() => {
-          isScrolling = false;
-          updateCamera(currentIndex + 1);
-        }, 1500);
-      }
-    } else if (e.deltaY < 0 && currentIndex > 0) {
-      isScrolling = true;
-      const prevSection = document.getElementById(sections[currentIndex - 1]);
-      if (prevSection) {
-        prevSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setTimeout(() => {
-          isScrolling = false;
-          updateCamera(currentIndex - 1);
-        }, 1500);
-      }
-    }
-  }, 50);
-}, { passive: true });
-
-// スクロール時のセクション更新
-window.addEventListener('scroll', () => {
-  if (!isScrolling) {
-    const currentIndex = getCurrentSectionIndex();
-    if (currentIndex !== currentSection) {
-      updateCamera(currentIndex);
-    }
-  }
-}, { passive: true });
-
 // 初期カメラ位置
-camera.position.set(cameraPositions[0].x, cameraPositions[0].y, cameraPositions[0].z);
-camera.lookAt(0, 1, 0);
+camera.position.set(sectionCameraConfigs[0].position.x, sectionCameraConfigs[0].position.y, sectionCameraConfigs[0].position.z);
+cameraData.target.set(sectionCameraConfigs[0].target.x, sectionCameraConfigs[0].target.y, sectionCameraConfigs[0].target.z);
+camera.lookAt(cameraData.target);
 
-// ScrollTriggerでセクションごとのアニメーション
+// ScrollTriggerでセクションごとのアニメーション（prty.jpスタイル）
 sectionElements.forEach((section, index) => {
   ScrollTrigger.create({
     trigger: section,
     start: 'top top',
     end: 'bottom top',
+    scrub: 1,
     onEnter: () => {
-      updateCamera(index);
-      
-      // セクション内の要素をアニメーション
-      const title = section.querySelector('.section-title');
-      const cards = section.querySelectorAll('.skill-card, .project-card');
-      const descriptions = section.querySelectorAll('.about-description');
-      
-      if (title) {
-        gsap.from(title, {
-          opacity: 0,
-          y: 100,
-          rotationX: -90,
-          duration: 1,
-          ease: 'power3.out',
-          transformOrigin: 'center bottom'
-        });
-      }
-      
-      cards.forEach((card, i) => {
-        gsap.from(card, {
-          opacity: 0,
-          y: 50,
-          scale: 0.8,
-          duration: 0.8,
-          delay: i * 0.1,
-          ease: 'back.out(1.7)'
-        });
-      });
-      
-      descriptions.forEach((desc, i) => {
-        gsap.from(desc, {
-          opacity: 0,
-          x: -50,
-          duration: 0.8,
-          delay: i * 0.2,
-          ease: 'power3.out'
-        });
-      });
+      animateCameraToSection(index);
+      animateSectionContent(section, index);
+    },
+    onEnterBack: () => {
+      animateCameraToSection(index);
+      animateSectionContent(section, index);
     }
   });
 });
+
+// セクションコンテンツのアニメーション
+function animateSectionContent(section, index) {
+  // セクション内の要素を取得
+  const title = section.querySelector('.section-title');
+  const cards = section.querySelectorAll('.skill-card, .project-card');
+  const descriptions = section.querySelectorAll('.about-description');
+  const buttons = section.querySelectorAll('.btn');
+  
+  const contentTimeline = gsap.timeline();
+  
+  // タイトルアニメーション
+  if (title) {
+    contentTimeline.from(title, {
+      opacity: 0,
+      y: 100,
+      rotationX: -90,
+      duration: 1,
+      ease: 'power3.out',
+      transformOrigin: 'center bottom'
+    });
+  }
+  
+  // カードアニメーション（スタガー）
+  if (cards.length > 0) {
+    contentTimeline.from(cards, {
+      opacity: 0,
+      y: 80,
+      scale: 0.8,
+      rotationY: 45,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: 'back.out(1.7)',
+      transformOrigin: 'center center'
+    }, '-=0.5');
+  }
+  
+  // 説明テキストアニメーション
+  if (descriptions.length > 0) {
+    contentTimeline.from(descriptions, {
+      opacity: 0,
+      x: -100,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: 'power3.out'
+    }, '-=0.5');
+  }
+  
+  // ボタンアニメーション
+  if (buttons.length > 0) {
+    contentTimeline.from(buttons, {
+      opacity: 0,
+      scale: 0,
+      rotation: -180,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: 'back.out(1.7)'
+    }, '-=0.3');
+  }
+}
 
 // パララックス効果: スクロールに応じて3Dシーンを動かす
 ScrollTrigger.create({
   trigger: 'body',
   start: 'top top',
   end: 'bottom bottom',
+  scrub: 1,
   onUpdate: (self) => {
     const progress = self.progress;
     
+    // モデルの回転
     if (currentPivot) {
       gsap.to(currentPivot.rotation, {
         y: progress * Math.PI * 2,
-        duration: 0.3,
+        duration: 0.1,
         ease: 'none'
       });
     }
     
-    // カメラのズーム
-    const targetZ = 5 - progress * 1.5;
-    camera.position.z = targetZ;
+    // カメラのズーム（微細な調整）
+    const baseZ = sectionCameraConfigs[cameraData.currentSection].position.z;
+    camera.position.z = baseZ - progress * 0.5;
   }
 });
 
-// ページロード時のアニメーション
+// ページロード時のアニメーション（prty.jpスタイル）
 window.addEventListener('load', () => {
+  const masterTimeline = gsap.timeline();
+  
+  // ナビゲーションのフェードイン
+  masterTimeline.from('.nav', {
+    y: -100,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out'
+  });
+  
   // ヒーローセクションのアニメーション
   const heroTimeline = gsap.timeline();
   
@@ -340,15 +336,19 @@ window.addEventListener('load', () => {
     .to('.hero-title-line', {
       opacity: 1,
       y: 0,
-      duration: 1,
-      stagger: 0.2,
+      duration: 1.2,
+      stagger: {
+        amount: 0.4,
+        from: 'start'
+      },
       ease: 'power3.out'
     })
     .to('.hero-subtitle', {
       opacity: 1,
       y: 0,
-      duration: 0.8,
-      ease: 'power3.out'
+      scale: 1,
+      duration: 1,
+      ease: 'back.out(1.7)'
     }, '-=0.5')
     .to('.hero-buttons', {
       opacity: 1,
@@ -361,25 +361,20 @@ window.addEventListener('load', () => {
       scale: 0,
       rotation: -180,
       duration: 0.6,
-      stagger: 0.1,
+      stagger: 0.15,
       ease: 'back.out(1.7)'
     }, '-=0.3')
     .to('.scroll-indicator', {
       opacity: 1,
+      y: 0,
       duration: 0.8,
       ease: 'power3.out'
     }, '-=0.4');
-
-  // ナビゲーションのフェードイン
-  gsap.from('.nav', {
-    y: -100,
-    opacity: 0,
-    duration: 1,
-    ease: 'power3.out'
-  });
+  
+  masterTimeline.add(heroTimeline, '-=0.5');
 });
 
-// マウス追従インタラクション
+// マウス追従インタラクション（prty.jpスタイル）
 let mouseX = 0;
 let mouseY = 0;
 let targetX = 0;
@@ -396,18 +391,22 @@ function updateMouseFollow() {
   targetY += (mouseY - targetY) * 0.05;
   
   if (currentPivot) {
-    currentPivot.rotation.y += targetX * 0.01;
-    currentPivot.rotation.x = targetY * 0.01;
+    gsap.to(currentPivot.rotation, {
+      y: currentPivot.rotation.y + targetX * 0.01,
+      x: targetY * 0.01,
+      duration: 0.3,
+      ease: 'power2.out'
+    });
   }
   
-  // カメラの微細な動き（アニメーション中の場合は無効化）
-  if (currentSection < cameraPositions.length) {
-    const basePos = cameraPositions[currentSection];
-    if (!isScrolling) {
-      camera.position.x = basePos.x + targetX * 0.3;
-      camera.position.y = basePos.y + targetY * 0.2;
-    }
-  }
+  // カメラの微細な動き
+  const basePos = sectionCameraConfigs[cameraData.currentSection].position;
+  gsap.to(camera.position, {
+    x: basePos.x + targetX * 0.2,
+    y: basePos.y + targetY * 0.15,
+    duration: 0.5,
+    ease: 'power2.out'
+  });
   
   requestAnimationFrame(updateMouseFollow);
 }
@@ -418,18 +417,14 @@ document.querySelectorAll('.nav-link').forEach((link, index) => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
     const targetSection = document.querySelector(link.getAttribute('href'));
-    if (targetSection && !isScrolling) {
-      isScrolling = true;
+    if (targetSection) {
       targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setTimeout(() => {
-        isScrolling = false;
-        updateCamera(index);
-      }, 1500);
+      animateCameraToSection(index);
     }
   });
 });
 
-// ナビゲーションのアクティブ状態
+// ナビゲーションのアクティブ状態（ScrollTrigger）
 ScrollTrigger.create({
   trigger: 'body',
   start: 'top top',
@@ -440,10 +435,64 @@ ScrollTrigger.create({
     
     document.querySelectorAll('.nav-link').forEach((link, index) => {
       if (index === activeIndex) {
+        gsap.to(link, {
+          color: '#667eea',
+          duration: 0.3,
+          ease: 'power2.out'
+        });
         link.classList.add('active');
       } else {
+        gsap.to(link, {
+          color: '#e8eef7',
+          duration: 0.3,
+          ease: 'power2.out'
+        });
         link.classList.remove('active');
       }
     });
   }
+});
+
+// カードホバーアニメーション（prty.jpスタイル）
+document.querySelectorAll('.skill-card, .project-card').forEach((card) => {
+  card.addEventListener('mouseenter', () => {
+    gsap.to(card, {
+      y: -10,
+      scale: 1.05,
+      rotationY: 5,
+      duration: 0.4,
+      ease: 'power2.out'
+    });
+  });
+  
+  card.addEventListener('mouseleave', () => {
+    gsap.to(card, {
+      y: 0,
+      scale: 1,
+      rotationY: 0,
+      duration: 0.4,
+      ease: 'power2.out'
+    });
+  });
+});
+
+// ボタンホバーアニメーション
+document.querySelectorAll('.btn').forEach((btn) => {
+  btn.addEventListener('mouseenter', () => {
+    gsap.to(btn, {
+      scale: 1.05,
+      y: -2,
+      duration: 0.3,
+      ease: 'power2.out'
+    });
+  });
+  
+  btn.addEventListener('mouseleave', () => {
+    gsap.to(btn, {
+      scale: 1,
+      y: 0,
+      duration: 0.3,
+      ease: 'power2.out'
+    });
+  });
 });
