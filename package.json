@@ -1,0 +1,17 @@
+{
+  "name": "portfolio-3d-rig-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  },
+  "dependencies": {
+    "gsap": "^3.14.2",
+    "three": "^0.171.0"
+  }
+}

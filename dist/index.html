@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AutoRigPro glb animation demo</title>
+    <script type="module" crossorigin src="/assets/index-4mNgz594.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DnlWzZug.css">
+  </head>
+  <body>
+    <div id="app">
+      <div id="ui">
+        <div class="row">
+          <strong>AutoRigPro モデル再生デモ</strong>
+        </div>
+        <div class="row">
+          <label>モデル: <code id="modelPath">/models/scapegoat.glb</code></label>
+        </div>
+        <div class="row">
+          <button id="toggle">読み込み中…</button>
+          <select id="clips" disabled></select>
+        </div>
+        <div class="row hint">
+          切替: <code>?model=scapegoat.glb</code>（<code>public/models/</code>配下）
+        </div>
+        <div class="row hint">
+          ドラッグ:回転 / ホイール:ズーム / 右ドラッグ:平行移動
+        </div>
+      </div>
+      <canvas id="c"></canvas>
+    </div>
+  </body>
+</html>
