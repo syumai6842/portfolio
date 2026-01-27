@@ -1,0 +1,89 @@
+backend:
+  name: github
+  repo: "syumai6842/portfolio"
+  branch: "master"
+  base_url: "/api"
+  auth_endpoint: "auth"
+
+local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "works"
+    label: "Works"
+    files:
+      - name: "works"
+        label: "Works Data"
+        file: "public/content/works.json"
+        format: "json"
+        fields:
+          - label: "Development"
+            name: "development"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "string", required: false }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Tags", name: "tags", widget: "list", required: false }
+              - { label: "Image", name: "image", widget: "image", required: false }
+              - { label: "Related Images", name: "images", widget: "list", required: false, field: { label: "Image", name: "image", widget: "image", required: false } }
+              - label: "Related Links"
+                name: "links"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Label", name: "label", widget: "string", required: false }
+                  - { label: "URL", name: "url", widget: "string" }
+          - label: "Design"
+            name: "design"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "string", required: false }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Tags", name: "tags", widget: "list", required: false }
+              - { label: "Image", name: "image", widget: "image", required: false }
+              - { label: "Related Images", name: "images", widget: "list", required: false, field: { label: "Image", name: "image", widget: "image", required: false } }
+              - label: "Related Links"
+                name: "links"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Label", name: "label", widget: "string", required: false }
+                  - { label: "URL", name: "url", widget: "string" }
+          - label: "Music"
+            name: "music"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "string", required: false }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Tags", name: "tags", widget: "list", required: false }
+              - { label: "Image", name: "image", widget: "image", required: false }
+              - { label: "Related Images", name: "images", widget: "list", required: false, field: { label: "Image", name: "image", widget: "image", required: false } }
+              - label: "Related Links"
+                name: "links"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Label", name: "label", widget: "string", required: false }
+                  - { label: "URL", name: "url", widget: "string" }
+          - label: "Project"
+            name: "project"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "string", required: false }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Tags", name: "tags", widget: "list", required: false }
+              - { label: "Image", name: "image", widget: "image", required: false }
+              - { label: "Related Images", name: "images", widget: "list", required: false, field: { label: "Image", name: "image", widget: "image", required: false } }
+              - label: "Related Links"
+                name: "links"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Label", name: "label", widget: "string", required: false }
+                  - { label: "URL", name: "url", widget: "string" }
