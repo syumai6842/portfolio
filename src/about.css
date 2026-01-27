@@ -1,0 +1,256 @@
+/* ABOUT画面専用スタイル */
+
+/* Aboutページ */
+.about-page {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: transparent;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.about-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  z-index: -1;
+}
+
+/* 白い背景 */
+.about-page-background {
+  position: absolute;
+  inset: 0;
+  background: #f39a2f;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Three.js 背景キャンバス */
+.about-three-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.about-three-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ABOUTレイアウト */
+.about-layout {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(1rem, 2vw, 1.8rem);
+  padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 4vw, 3rem) clamp(1rem, 4vw, 3rem);
+  pointer-events: none;
+  height: 100%;
+}
+
+/* ABOUTタイトルコンテナ */
+.about-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.25rem, 0.75vw, 0.5rem);
+}
+
+/* ページ上部ナビゲーション */
+.about-page-nav {
+  position: absolute;
+  top: clamp(1rem, 4vw, 2.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 4vw, 2.5rem);
+  pointer-events: auto;
+}
+
+/* 半透明の情報UI */
+.about-panels {
+  width: 100%;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 1fr;
+  grid-auto-flow: row dense;
+  gap: clamp(0.8rem, 2vw, 1.2rem);
+  align-content: stretch;
+  align-items: stretch;
+  padding-bottom: clamp(1.5rem, 4vw, 3rem);
+  min-height: 0;
+  height: 100%;
+  perspective: 900px;
+}
+
+.about-panel {
+  padding: clamp(0.5rem, 1.6vw, 1rem) clamp(0.8rem, 2vw, 1.4rem);
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  color: #1a1a1a;
+  display: none;
+  gap: 0.5rem;
+  box-shadow: 0 12px 30px rgba(26, 26, 26, 0.08);
+  opacity: 0;
+  transform: translateY(10px);
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  align-self: stretch;
+  min-height: 0;
+  height: 100%;
+}
+
+.about-panel.is-active {
+  display: grid;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-panel-title {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: clamp(1rem, 2.8vw, 1.4rem);
+  letter-spacing: 0.08em;
+}
+
+.about-panel-body {
+  font-size: clamp(0.85rem, 2.4vw, 1rem);
+  line-height: 1.6;
+}
+
+/* 画面右側半分 */
+.about-panel--right {
+  grid-column: 6 / 13;
+}
+
+/* 画面左側半分 */
+.about-panel--left {
+  grid-column: 1 / 8;
+}
+
+.about-panel--dual.about-panel--right {
+  grid-column: 8 / 13;
+}
+
+.about-panel--dual.about-panel--left {
+  grid-column: 1 / 6;
+}
+
+/* ABOUTタイトル */
+.about-title {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: clamp(3rem, 12vw, 8rem);
+  color: #1a1a1a;
+  letter-spacing: 0.05em;
+  text-align: left;
+  margin: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: clamp(0.6rem, 2vw, 1.2rem);
+}
+
+.about-title-debug {
+  font-weight: 400;
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
+  letter-spacing: 0.2em;
+  opacity: 0.6;
+}
+
+/* ナビゲーションラベル（WorksとContact） */
+.about-nav-label {
+  font-family: "Oswald", sans-serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: rgba(26, 26, 26, 0.4);
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.about-nav-label:hover {
+  color: rgba(26, 26, 26, 0.7);
+  transform: scale(1.05);
+}
+
+/* コンテンツエリア */
+.about-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(4rem, 8vw, 8rem) clamp(2rem, 5vw, 4rem);
+}
+
+.about-drag-guide {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1.5rem, 5vw, 3rem);
+  transform: translateX(-50%);
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.4rem, 1.6vw, 0.75rem);
+  color: #fff;
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 0.12em;
+  pointer-events: none;
+  text-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  opacity: 0.65;
+  animation: about-drag-pulse 2.4s ease-in-out infinite;
+}
+
+.about-drag-icon {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  line-height: 1;
+}
+
+.about-drag-text {
+  font-size: clamp(0.8rem, 2.2vw, 1rem);
+  text-transform: uppercase;
+}
+
+.about-drag-guide.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease;
+  animation: none;
+}
+
+@keyframes about-drag-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .about-content {
+    padding: clamp(3rem, 6vw, 4rem) clamp(1.5rem, 4vw, 2rem);
+  }
+}

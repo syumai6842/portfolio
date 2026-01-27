@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <title>CONTACT | ポートフォリオ</title>
+  </head>
+  <body>
+    <!-- Contactページ -->
+    <section id="contact" class="contact-page">
+      <!-- 白い背景 -->
+      <div class="contact-page-background"></div>
+      
+      <!-- コンテンツエリア -->
+      <div class="contact-content">
+        <div class="contact-title-container">
+          <a href="/about.html" class="contact-nav-label">About</a>
+          <h1 class="contact-title">CONTACT</h1>
+          <a href="/works.html" class="contact-nav-label">Works</a>
+        </div>
+
+        <div class="contact-form-panel">
+          <form id="contact-form" class="contact-form">
+            <div class="form-group">
+              <label for="name" class="form-label">お名前</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-input"
+                required
+                placeholder=""
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">メールアドレス</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-input"
+                required
+                placeholder=""
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">メッセージ</label>
+              <textarea
+                id="message"
+                name="message"
+                class="form-textarea"
+                rows="8"
+                required
+                placeholder=""
+              ></textarea>
+            </div>
+
+            <button type="submit" class="contact-send-button">
+              <span class="button-text">送信</span>
+            </button>
+          </form>
+
+          <!-- 送信成功メッセージ -->
+          <div id="success-message" class="status-message success-message" style="display: none;">
+            <div class="success-icon">✓</div>
+            <p class="success-text">メッセージを送信しました！</p>
+          </div>
+
+          <!-- 送信エラーメッセージ -->
+          <div id="error-message" class="status-message error-message" style="display: none;">
+            <div class="error-icon">✗</div>
+            <p class="error-text">送信に失敗しました。もう一度お試しください。</p>
+          </div>
+        </div>
+
+        <aside class="contact-social-panel" aria-label="SNS情報">
+          <h2 class="contact-panel-title">SOCIAL</h2>
+          <p class="contact-panel-body">
+            Instagram / X / Behance などに制作過程や短いメモを掲載予定です。
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <script type="module" src="/src/contact.js"></script>
+  </body>
+</html>

@@ -1,0 +1,362 @@
+/* CONTACT画面専用スタイル */
+
+/* Contactページ */
+.contact-page {
+  position: relative;
+  min-height: 100vh;
+  z-index: 20;
+  background: transparent;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  overflow: visible;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+html,
+body {
+  height: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.contact-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  z-index: -1;
+}
+
+/* 白い背景 */
+.contact-page-background {
+  position: absolute;
+  inset: 0;
+  background: #E7E3E1;
+  z-index: 0;
+}
+
+/* CONTACTタイトルコンテナ */
+.contact-title-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 4vw, 3rem);
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* CONTACTタイトル */
+.contact-title {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  color: #1a1a1a;
+  letter-spacing: 0.05em;
+  text-align: center;
+  margin: 0;
+}
+
+/* ナビゲーションラベル（AboutとWorks） */
+.contact-nav-label {
+  font-family: "Oswald", sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+  color: rgba(26, 26, 26, 0.4);
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.contact-nav-label:hover {
+  color: rgba(26, 26, 26, 0.7);
+  transform: scale(1.05);
+}
+
+/* コンテンツエリア */
+.contact-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(4rem, 8vw, 8rem) clamp(2rem, 5vw, 4rem) clamp(6rem, 12vw, 10rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+/* フォームパネル */
+.contact-form-panel {
+  position: relative;
+  width: 100%;
+  max-width: clamp(320px, 80vw, 720px);
+  padding: clamp(2rem, 5vw, 3rem);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(244, 241, 236, 0.94) 100%);
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border-radius: clamp(10px, 2vw, 16px);
+  backdrop-filter: blur(8px);
+}
+
+/* SNSパネル */
+.contact-social-panel {
+  position: relative;
+  width: 100%;
+  max-width: clamp(320px, 80vw, 720px);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(26, 26, 26, 0.12);
+  border-radius: clamp(10px, 2vw, 16px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(6px);
+}
+
+.contact-panel-title {
+  margin: 0 0 clamp(0.6rem, 1.5vw, 1rem);
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  letter-spacing: 0.08em;
+  color: #1a1a1a;
+}
+
+.contact-panel-body {
+  margin: 0;
+  font-size: clamp(0.9rem, 2.6vw, 1rem);
+  line-height: 1.6;
+  color: rgba(26, 26, 26, 0.8);
+}
+
+/* フォームスタイル */
+.contact-form {
+  position: relative;
+  z-index: 1;
+}
+
+.form-group {
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+}
+
+.form-label {
+  display: block;
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  color: rgba(26, 26, 26, 0.65);
+  margin-bottom: clamp(0.5rem, 1vw, 0.75rem);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: clamp(0.75rem, 1.5vw, 1rem);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  color: #1a1a1a;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(26, 26, 26, 0.12);
+  border-bottom: 2px solid rgba(26, 26, 26, 0.2);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  user-select: text;
+  -webkit-user-select: text;
+  resize: vertical;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-bottom-color: rgba(26, 26, 26, 0.6);
+  border-color: rgba(26, 26, 26, 0.4);
+  box-shadow: 0 8px 20px rgba(26, 26, 26, 0.08);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.form-textarea {
+  min-height: clamp(120px, 20vw, 180px);
+  line-height: 1.6;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: rgba(26, 26, 26, 0.35);
+}
+
+/* 送信ボタン */
+.contact-send-button {
+  position: relative;
+  width: 100%;
+  padding: clamp(1rem, 2vw, 1.25rem);
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: #f7f3ef;
+  background: linear-gradient(135deg, #2b2b2b 0%, #1b1b1b 100%);
+  border: 1px solid rgba(26, 26, 26, 0.6);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.contact-send-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  transition: left 0.3s ease;
+}
+
+.contact-send-button:hover::before {
+  left: 0;
+}
+
+.contact-send-button:hover {
+  border-color: rgba(26, 26, 26, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+}
+
+.contact-send-button:active {
+  transform: translateY(0);
+}
+
+.contact-send-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.button-text {
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.1em;
+}
+
+.button-icon {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  transition: transform 0.3s ease;
+}
+
+.contact-send-button:hover .button-icon {
+  transform: translateX(4px);
+}
+
+/* 成功メッセージ */
+.status-message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(250, 249, 247, 0.98);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  z-index: 10;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.success-icon,
+.error-icon {
+  width: clamp(60px, 12vw, 80px);
+  height: clamp(60px, 12vw, 80px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: bold;
+  animation: scaleIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.success-icon {
+  background: rgba(76, 175, 80, 0.1);
+  color: #4caf50;
+  border: 3px solid #4caf50;
+}
+
+.error-icon {
+  background: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+  border: 3px solid #f44336;
+}
+
+.success-text,
+.error-text {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: #1a1a1a;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .contact-content {
+    padding: clamp(3rem, 6vw, 4rem) clamp(1.5rem, 4vw, 2rem);
+  }
+  
+  .contact-title-container {
+    flex-direction: column;
+    gap: clamp(0.5rem, 2vw, 1rem);
+  }
+
+  .contact-form-panel {
+    padding: clamp(1.5rem, 4vw, 2rem);
+  }
+}

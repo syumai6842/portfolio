@@ -1,0 +1,73 @@
+{
+  "development": [
+    {
+      "id": "dev-1",
+      "title": "Web Application",
+      "description": "ReactとTypeScriptを使用したモダンなWebアプリケーション",
+      "tags": ["React", "TypeScript", "Node.js"],
+      "image": null
+    },
+    {
+      "id": "dev-2",
+      "title": "API Service",
+      "description": "RESTful APIとGraphQLを組み合わせたバックエンドサービス",
+      "tags": ["GraphQL", "Express", "MongoDB"],
+      "image": null
+    },
+    {
+      "id": "dev-3",
+      "title": "Mobile App",
+      "description": "React Nativeで開発したクロスプラットフォームアプリ",
+      "tags": ["React Native", "Firebase"],
+      "image": null
+    }
+  ],
+  "design": [
+    {
+      "id": "design-1",
+      "title": "Brand Identity",
+      "description": "企業ブランドのビジュアルアイデンティティデザイン",
+      "tags": ["Branding", "Logo Design"],
+      "image": null
+    },
+    {
+      "id": "design-2",
+      "title": "UI/UX Design",
+      "description": "ユーザー体験を重視したインターフェースデザイン",
+      "tags": ["UI Design", "UX Research"],
+      "image": null
+    }
+  ],
+  "music": [
+    {
+      "id": "music-1",
+      "title": "Original Composition",
+      "description": "オリジナル楽曲の制作とアレンジ",
+      "tags": ["Composition", "Arrangement"],
+      "image": null
+    },
+    {
+      "id": "music-2",
+      "title": "Sound Design",
+      "description": "ゲームや映像作品のためのサウンドデザイン",
+      "tags": ["Sound Design", "Foley"],
+      "image": null
+    }
+  ],
+  "project": [
+    {
+      "id": "project-1",
+      "title": "Portfolio Website",
+      "description": "このポートフォリオサイト自体の制作",
+      "tags": ["Three.js", "GSAP", "Web Design"],
+      "image": null
+    },
+    {
+      "id": "project-2",
+      "title": "Open Source",
+      "description": "オープンソースプロジェクトへの貢献",
+      "tags": ["Open Source", "GitHub"],
+      "image": null
+    }
+  ]
+}

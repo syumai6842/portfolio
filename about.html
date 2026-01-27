@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <title>ABOUT | ポートフォリオ</title>
+  </head>
+  <body>
+    <!-- Aboutページ -->
+    <section id="about" class="about-page">
+      <!-- 白い背景 -->
+      <div class="about-page-background"></div>
+
+      <!-- Three.js 背景 -->
+      <div class="about-three-canvas" aria-hidden="true"></div>
+      
+      <!-- ページナビゲーション -->
+      <nav class="about-page-nav" aria-label="Aboutページ内ナビゲーション">
+        <a href="/works.html" class="about-nav-label">Works</a>
+        <a href="/contact.html" class="about-nav-label">Contact</a>
+      </nav>
+
+      <!-- ABOUTタイトル + 半透明の情報UI -->
+      <div class="about-layout">
+        <div class="about-title-container">
+          <h1 class="about-title">
+            ABOUT
+            <span class="about-title-debug" aria-live="polite"></span>
+          </h1>
+        </div>
+        <div class="about-panels" aria-label="About情報パネル">
+          <article class="about-panel about-panel--right" data-view="front">
+            <h2 class="about-panel-title">コンセプト</h2>
+            <p class="about-panel-body">
+              物理オブジェクトの手触りを感じる体験設計を軸に、世界観を統一して設計しています。
+              触れる、開く、覗くといった動きから情報へアクセスする構成です。
+            </p>
+          </article>
+          <article class="about-panel about-panel--left" data-view="back">
+            <h2 class="about-panel-title">価値観・性格</h2>
+            <p class="about-panel-body">
+              手触りや重力感のある体験づくりにこだわり、静かな熱量で粘り強く磨き続けるタイプです。
+              余白や間を大切にしながら、伝わる形に整えていきます。
+            </p>
+          </article>
+          <article class="about-panel about-panel--left" data-view="down">
+            <h2 class="about-panel-title">経歴</h2>
+            <p class="about-panel-body">
+              Web / 3D / 映像の領域を横断しながら、体験設計と表現を磨いています。
+            </p>
+          </article>
+          <article class="about-panel about-panel--left about-panel--dual" data-view="left" data-topic="service">
+            <h2 class="about-panel-title">サービス</h2>
+            <p class="about-panel-body">
+              体験設計、ビジュアル設計、3D表現、アニメーション実装まで一貫対応します。
+            </p>
+          </article>
+          <article class="about-panel about-panel--right about-panel--dual" data-view="right" data-topic="skill">
+            <h2 class="about-panel-title">スキルセット</h2>
+            <p class="about-panel-body">
+              Three.js / GLSL / GSAP / Figma / Blender / After Effects など。
+            </p>
+          </article>
+          <article class="about-panel about-panel--right about-panel--dual" data-view="left" data-topic="service">
+            <p class="about-panel-body">
+              体験設計、ビジュアル設計、3D表現、アニメーション実装まで一貫対応します。
+            </p>
+          </article>
+          <article class="about-panel about-panel--left about-panel--dual" data-view="right" data-topic="skill">
+            <p class="about-panel-body">
+              Three.js / GLSL / GSAP / Figma / Blender / After Effects など。
+            </p>
+          </article>
+        </div>
+      </div>
+      
+      <!-- コンテンツエリア -->
+      <div class="about-content">
+        <!-- ここにコンテンツを追加 -->
+      </div>
+
+      <div class="about-drag-guide" aria-hidden="true">
+        <span class="material-symbols-outlined about-drag-icon">drag_click</span>
+        <span class="about-drag-text">ドラッグしてください</span>
+      </div>
+    </section>
+
+    <script type="module" src="/src/about.js"></script>
+  </body>
+</html>

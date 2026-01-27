@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <title>WORKS | ポートフォリオ</title>
+  </head>
+  <body>
+    <!-- Worksページ -->
+    <section id="works" class="works-page">
+      <!-- 白い背景（切り欠きあり） -->
+      <div class="works-page-background"></div>
+      
+      <!-- 下地のアイコン -->
+      <div class="corner-label corner-label-top-left material-symbols-outlined">code</div>
+      <div class="corner-label corner-label-top-right material-symbols-outlined">palette</div>
+      <div class="corner-label corner-label-bottom-left material-symbols-outlined">music_note</div>
+      <div class="corner-label corner-label-bottom-right material-symbols-outlined">folder_open</div>
+
+      <!-- 左上カールの操作誘導リップル -->
+      <div class="corner-ripple corner-ripple-top-left" aria-hidden="true"></div>
+      
+      <!-- WORKSタイトル -->
+      <div class="works-title-container">
+        <a href="/about.html" class="works-nav-label works-nav-label-top">About</a>
+        <h1 class="works-title">WORKS</h1>
+        <a href="/contact.html" class="works-nav-label works-nav-label-bottom">Contact</a>
+      </div>
+      
+      <!-- 付箋の捲れた部分から落ちる影 -->
+      <div class="page-curl-shadow page-curl-shadow-top-left"></div>
+      <div class="page-curl-shadow page-curl-shadow-top-right"></div>
+      <div class="page-curl-shadow page-curl-shadow-bottom-left"></div>
+      <div class="page-curl-shadow page-curl-shadow-bottom-right"></div>
+      
+      <!-- 付箋の捲れた部分の影 -->
+      <div class="page-curl page-curl-top-left"></div>
+      <div class="page-curl page-curl-top-right"></div>
+      <div class="page-curl page-curl-bottom-left"></div>
+      <div class="page-curl page-curl-bottom-right"></div>
+      
+      <!-- 作品一覧コンテナ -->
+      <div class="works-list-container" aria-hidden="true">
+        <button class="works-close-btn" aria-label="閉じる">×</button>
+        <div class="works-list-content">
+          <h2 class="works-list-title"></h2>
+          <div class="works-list-items">
+            <!-- 作品アイテムはJavaScriptで動的に生成 -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="/src/works.js"></script>
+  </body>
+</html>

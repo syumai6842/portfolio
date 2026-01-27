@@ -1,0 +1,55 @@
+backend:
+  name: github
+  repo: "USER/REPO"
+  branch: "master"
+
+local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "works"
+    label: "Works"
+    files:
+      - name: "works"
+        label: "Works Data"
+        file: "public/content/works.json"
+        format: "json"
+        fields:
+          - label: "Development"
+            name: "development"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "string", required: false }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Tags", name: "tags", widget: "list", required: false }
+              - { label: "Image", name: "image", widget: "image", required: false }
+          - label: "Design"
+            name: "design"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "string", required: false }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Tags", name: "tags", widget: "list", required: false }
+              - { label: "Image", name: "image", widget: "image", required: false }
+          - label: "Music"
+            name: "music"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "string", required: false }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Tags", name: "tags", widget: "list", required: false }
+              - { label: "Image", name: "image", widget: "image", required: false }
+          - label: "Project"
+            name: "project"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "string", required: false }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Tags", name: "tags", widget: "list", required: false }
+              - { label: "Image", name: "image", widget: "image", required: false }

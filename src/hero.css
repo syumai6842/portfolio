@@ -1,0 +1,385 @@
+/* ヒーロー画面専用スタイル */
+
+#c {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  display: block !important;
+  z-index: 1 !important;
+  pointer-events: none;
+}
+
+/* TOKOROコンテナ（モデルより前） */
+#tokoro-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.5rem, 1vw, 1rem);
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* TOKOROテキスト（モデルより前） */
+#tokoro-text {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: clamp(8rem, 28vw, 26rem);
+  background: linear-gradient(to top, #d77513, #e89040);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: 0.02em;
+  opacity: 0.7;
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.15), 0 0 80px rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+/* Portfolioテキスト（TOKOROの下） */
+#portfolio-text {
+  font-family: "Oswald", sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  background: linear-gradient(to top, #d77513, #e89040);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+/* ヒーローセクション */
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  z-index: 2;
+  overflow: hidden;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hero > div {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* 幾何学的背景 */
+.geometric-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #1F2527, rgba(50, 60, 70, 0.5));
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.geo-shape {
+  position: absolute;
+  opacity: 0.6;
+  filter: blur(0.5px);
+  will-change: transform;
+}
+
+/* 円形 */
+.geo-circle-1 {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.6), rgba(118, 75, 162, 0.6));
+  top: 10%;
+  left: 10%;
+  border: 2px solid rgba(102, 126, 234, 0.5);
+}
+
+.geo-circle-2 {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(215, 117, 19, 0.5), rgba(232, 144, 64, 0.5));
+  bottom: 20%;
+  right: 15%;
+  border: 2px solid rgba(215, 117, 19, 0.5);
+}
+
+.geo-circle-3 {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.5), transparent);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(102, 126, 234, 0.4);
+}
+
+/* 三角形 */
+.geo-triangle-1 {
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 173px solid rgba(102, 126, 234, 0.4);
+  top: 20%;
+  right: 20%;
+  filter: blur(1px);
+}
+
+.geo-triangle-2 {
+  width: 0;
+  height: 0;
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  border-top: 138px solid rgba(215, 117, 19, 0.4);
+  bottom: 15%;
+  left: 20%;
+  filter: blur(1px);
+}
+
+/* 四角形 */
+.geo-square-1 {
+  width: 180px;
+  height: 180px;
+  background: linear-gradient(45deg, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4));
+  top: 30%;
+  right: 10%;
+  transform: rotate(45deg);
+  border: 2px solid rgba(102, 126, 234, 0.4);
+}
+
+.geo-square-2 {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, rgba(215, 117, 19, 0.4), rgba(232, 144, 64, 0.4));
+  bottom: 30%;
+  left: 15%;
+  transform: rotate(-45deg);
+  border: 2px solid rgba(215, 117, 19, 0.4);
+}
+
+/* 六角形 */
+.geo-hexagon-1 {
+  width: 160px;
+  height: 160px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.35), rgba(118, 75, 162, 0.35));
+  clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%) rotate(30deg);
+  border: 2px solid rgba(102, 126, 234, 0.4);
+}
+
+.geo-hexagon-2 {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(45deg, rgba(215, 117, 19, 0.35), rgba(232, 144, 64, 0.35));
+  clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+  bottom: 25%;
+  right: 30%;
+  transform: rotate(-30deg);
+  border: 2px solid rgba(215, 117, 19, 0.4);
+}
+
+/* 線 */
+.geo-line {
+  position: absolute;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.6), transparent);
+  height: 2px;
+  opacity: 0.7;
+}
+
+.geo-line-1 {
+  width: 400px;
+  top: 25%;
+  left: 5%;
+  transform: rotate(45deg);
+}
+
+.geo-line-2 {
+  width: 350px;
+  bottom: 25%;
+  right: 5%;
+  transform: rotate(-45deg);
+}
+
+.geo-line-3 {
+  width: 300px;
+  top: 50%;
+  left: 20%;
+  transform: rotate(90deg);
+}
+
+.geo-line-4 {
+  width: 250px;
+  top: 60%;
+  right: 25%;
+  transform: rotate(135deg);
+}
+
+/* ズーム中の肌色オーバーレイ */
+.zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  background: #E7E3E1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.1s ease, visibility 0.1s ease;
+}
+
+/* ホールド中のマウス位置アニメーション */
+.hold-cursor {
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  margin-left: -40px;
+  margin-top: -40px;
+  left: 0;
+  top: 0;
+  z-index: 16;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.hold-cursor.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hold-cursor::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(215, 117, 19, 0.6);
+  animation: hold-cursor-pulse 1s ease-out infinite;
+}
+
+.hold-cursor::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(215, 117, 19, 0.15) 0%, transparent 70%);
+  animation: hold-cursor-glow 1s ease-out infinite;
+}
+
+/* 長押しヒント（下部の四角が広がる） */
+.hold-square-ripple {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(12vh, 16vh, 20vh);
+  width: clamp(28px, 4vw, 56px);
+  height: clamp(28px, 4vw, 56px);
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.hold-square-ripple::before,
+.hold-square-ripple::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(215, 117, 19, 0.9);
+  border-radius: 7px;
+  box-shadow: 0 0 24px rgba(215, 117, 19, 0.35);
+  transform: scale(0.3);
+  opacity: 0;
+  animation: hold-square-ripple 2.2s ease-out infinite;
+}
+
+.hold-square-ripple::after {
+  animation-delay: 1.1s;
+}
+
+@keyframes hold-cursor-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@keyframes hold-square-ripple {
+  0% {
+    transform: scale(0.25);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes hold-cursor-glow {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .hero {
+    padding: 0;
+  }
+  
+  #tokoro-text {
+    font-size: clamp(5rem, 22vw, 14rem);
+  }
+  
+  #portfolio-text {
+    font-size: clamp(2rem, 5vw, 4rem);
+  }
+  
+  #tokoro-container {
+    gap: clamp(0.3rem, 0.8vw, 0.6rem);
+  }
+}
+
+@media (max-width: 480px) {
+  #tokoro-text {
+    font-size: clamp(4rem, 18vw, 10rem);
+  }
+  
+  #portfolio-text {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+  }
+}
