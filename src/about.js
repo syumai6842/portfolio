@@ -198,7 +198,7 @@ const initThreeBackground = () => {
 
     const angle = Math.atan2(offset.x, offset.z);
     const angleDeg = THREE.MathUtils.radToDeg(angle);
-
+    
     if (angleDeg > -45 && angleDeg <= 45) {
       setActivePanel('front');
     } else if (angleDeg > 45 && angleDeg <= 135) {
