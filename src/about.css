@@ -11,6 +11,9 @@
   pointer-events: auto;
   overflow: hidden;
   user-select: none;
+  touch-action: pan-y;
+  overscroll-behavior: none;
+  overscroll-behavior-x: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -39,6 +42,8 @@
   inset: 0;
   z-index: 1;
   pointer-events: auto;
+  touch-action: pan-y;
+  overscroll-behavior-x: none;
 }
 
 .about-three-canvas canvas {

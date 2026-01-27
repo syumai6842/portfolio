@@ -28,7 +28,7 @@ export const emailjsConfig = {
 
   // メールを受信するあなたのメールアドレス
   // EmailJSのテンプレートで {{to_email}} として使用されます
-  toEmail: env.VITE_EMAILJS_TO_EMAIL || 'kmc2310@kamiyama.ac.jp',
+  toEmail: env.VITE_EMAILJS_TO_EMAIL || 'studio.phalae@gmail.com',
 };
 
 // EmailJSテンプレートで使用する変数名

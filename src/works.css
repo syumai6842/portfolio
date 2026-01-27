@@ -11,6 +11,9 @@
   pointer-events: auto;
   overflow: hidden;
   user-select: none;
+  touch-action: pan-y;
+  overscroll-behavior: none;
+  overscroll-behavior-x: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -64,6 +67,7 @@
   transform: translateZ(0);
   will-change: transform;
   transition: border-color 0.3s ease;
+  touch-action: none;
 }
 
 .page-curl:active {
@@ -361,6 +365,8 @@
   transition: none;
   overflow-y: auto;
   overflow-x: hidden;
+  touch-action: pan-y;
+  overscroll-behavior-x: none;
 }
 
 .works-list-container::before {
@@ -611,6 +617,8 @@
   padding: clamp(1.5rem, 4vw, 3rem);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
   color: #1a1a1a;
+  touch-action: pan-y;
+  overscroll-behavior-x: none;
 }
 
 .works-detail-header {
