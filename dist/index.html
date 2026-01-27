@@ -3,31 +3,60 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AutoRigPro glb animation demo</title>
-    <script type="module" crossorigin src="/assets/index-4mNgz594.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DnlWzZug.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <title>ポートフォリオ | Web Developer</title>
+    <script type="module" crossorigin src="/assets/main-Dff_A-_H.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/audio-manager-BHUJcjWQ.js">
+    <link rel="modulepreload" crossorigin href="/assets/GLTFLoader-0B_cqq0G.js">
+    <link rel="modulepreload" crossorigin href="/assets/index-CB87Sc6I.js">
+    <link rel="stylesheet" crossorigin href="/assets/audio-manager-CEc0sL9s.css">
+    <link rel="stylesheet" crossorigin href="/assets/main-D3QfF35R.css">
   </head>
   <body>
-    <div id="app">
-      <div id="ui">
-        <div class="row">
-          <strong>AutoRigPro モデル再生デモ</strong>
-        </div>
-        <div class="row">
-          <label>モデル: <code id="modelPath">/models/scapegoat.glb</code></label>
-        </div>
-        <div class="row">
-          <button id="toggle">読み込み中…</button>
-          <select id="clips" disabled></select>
-        </div>
-        <div class="row hint">
-          切替: <code>?model=scapegoat.glb</code>（<code>public/models/</code>配下）
-        </div>
-        <div class="row hint">
-          ドラッグ:回転 / ホイール:ズーム / 右ドラッグ:平行移動
-        </div>
-      </div>
-      <canvas id="c"></canvas>
+    <!-- 幾何学的背景要素 -->
+    <div class="geometric-background">
+      <div class="geo-shape geo-circle-1"></div>
+      <div class="geo-shape geo-circle-2"></div>
+      <div class="geo-shape geo-circle-3"></div>
+      <div class="geo-shape geo-triangle-1"></div>
+      <div class="geo-shape geo-triangle-2"></div>
+      <div class="geo-shape geo-square-1"></div>
+      <div class="geo-shape geo-square-2"></div>
+      <div class="geo-shape geo-hexagon-1"></div>
+      <div class="geo-shape geo-hexagon-2"></div>
+      <div class="geo-line geo-line-1"></div>
+      <div class="geo-line geo-line-2"></div>
+      <div class="geo-line geo-line-3"></div>
+      <div class="geo-line geo-line-4"></div>
     </div>
+    
+    <!-- 3D背景キャンバス -->
+    <canvas id="c"></canvas>
+    
+    <!-- ヒーローセクション -->
+    <section id="hero" class="fullscreen-section hero" role="button" tabindex="0" aria-label="長押しでWORKSへ">
+     <div>
+        <!-- TOKOROテキスト（モデルより前） -->
+        <div id="tokoro-container">
+          <div id="tokoro-text">TOKORO</div>
+          <div id="portfolio-text">Portfolio</div>
+        </div>
+        <div class="hold-square-ripple" aria-hidden="true"></div>
+     </div>
+    </section>
+
+    <button type="button" class="audio-toggle" aria-pressed="false" aria-label="音声をオン">
+      <span class="material-symbols-outlined audio-toggle-icon" aria-hidden="true">volume_off</span>
+    </button>
+
+    <!-- ズーム中の肌色オーバーレイ -->
+    <div id="zoom-overlay" class="zoom-overlay" aria-hidden="true"></div>
+
+    <!-- ホールド中のマウス位置アニメーション -->
+    <div id="hold-cursor" class="hold-cursor" aria-hidden="true"></div>
+
   </body>
 </html>
