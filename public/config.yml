@@ -2,10 +2,12 @@ backend:
   name: github
   repo: "syumai6842/portfolio"
   branch: "master"
-  base_url: "/api"
+  base_url: "https://portfolio-tokoros-projects.vercel.app/api"
   auth_endpoint: "auth"
 
 local_backend: true
+
+site_url: "https://portfolio-tokoros-projects.vercel.app"
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
