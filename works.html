@@ -53,7 +53,24 @@
           </div>
         </div>
       </div>
+
+      <!-- 作品詳細オーバーレイ -->
+      <div class="works-detail-overlay" aria-hidden="true">
+        <div class="works-detail-panel">
+          <div class="works-detail-header">
+            <p class="works-detail-caption">Tap anywhere to close</p>
+            <h3 class="works-detail-title"></h3>
+            <p class="works-detail-description"></p>
+          </div>
+          <div class="works-detail-gallery"></div>
+          <div class="works-detail-links"></div>
+        </div>
+      </div>
     </section>
+
+    <button type="button" class="audio-toggle audio-toggle--works" aria-pressed="false" aria-label="音声をオン">
+      <span class="material-symbols-outlined audio-toggle-icon" aria-hidden="true">volume_off</span>
+    </button>
 
     <script type="module" src="/src/works.js"></script>
   </body>

@@ -38,3 +38,51 @@ html, body {
   display: inline-block;
   position: relative;
 }
+
+/* オーディオ切り替えボタン */
+.audio-toggle {
+  position: fixed;
+  top: clamp(12px, 2vw, 20px);
+  right: clamp(12px, 2vw, 20px);
+  z-index: 50;
+  width: clamp(40px, 4vw, 48px);
+  height: clamp(40px, 4vw, 48px);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(10, 16, 24, 0.8);
+  color: #e8eef7;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  backdrop-filter: blur(6px);
+}
+
+.audio-toggle:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+}
+
+.audio-toggle:active {
+  transform: translateY(0);
+}
+
+.audio-toggle-icon {
+  font-size: clamp(20px, 2.5vw, 26px);
+  line-height: 1;
+}
+
+.audio-toggle--works {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+.audio-toggle--works:hover {
+  transform: translateX(-50%) translateY(-1px);
+}
+
+.audio-toggle--works:active {
+  transform: translateX(-50%);
+}

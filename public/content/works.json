@@ -1,73 +1,129 @@
 {
   "development": [
     {
-      "id": "dev-1",
-      "title": "Web Application",
-      "description": "ReactとTypeScriptを使用したモダンなWebアプリケーション",
-      "tags": ["React", "TypeScript", "Node.js"],
-      "image": null
+      "id": "msight",
+      "title": "高専プロコン2023　「μ sight」",
+      "description": "ARを用いたAndroid上で動作する音楽学習支援アプリ\n13人のチームのプロジェクトリーダー、デザイン、開発、プレゼンを担当",
+      "tags": [
+        "Unity",
+        "C#"
+      ],
+      "image": "/uploads/develop-projects_msight.jpg",
+      "images": [
+        "/uploads/develop-projects_msight2.png",
+        "/uploads/develop-projects_msight3.png"
+      ],
+      "links": [
+        {
+          "url": "https://docs.google.com/presentation/d/14yPp2tHkMhR1kM4XmIPH4TPslnZtOPeyhM1hZ8_nJJs/edit?usp=sharing",
+          "label": "発表資料"
+        },
+        {
+          "url": "https://github.com/syumai6842/m_sight.git",
+          "label": "リポジトリ"
+        },
+        {
+          "label": "高専プロコンURL",
+          "url": "https://www.procon.gr.jp/wp-content/uploads/2023/10/a2fbe69bd3d3c0649f97d0493a6256ae.pdf"
+        }
+      ]
     },
     {
-      "id": "dev-2",
-      "title": "API Service",
-      "description": "RESTful APIとGraphQLを組み合わせたバックエンドサービス",
-      "tags": ["GraphQL", "Express", "MongoDB"],
-      "image": null
+      "id": "mamorun",
+      "title": "2024年度高専プロコン",
+      "description": "情報共有に課題がある田舎町向けの被災時情報共有アプリ「まもるん」の開発を担当",
+      "tags": [
+        "Typescript",
+        "Firebase",
+        "React"
+      ],
+      "image": "/uploads/develop-projects_mamorun.jpg",
+      "images": [],
+      "links": [
+        {
+          "url": "https://www.procon.gr.jp/wp-content/uploads/2024/10/result_final.pdf",
+          "label": "高専プロコン本戦結果"
+        }
+      ]
     },
     {
-      "id": "dev-3",
-      "title": "Mobile App",
-      "description": "React Nativeで開発したクロスプラットフォームアプリ",
-      "tags": ["React Native", "Firebase"],
-      "image": null
+      "id": "barefort",
+      "title": "Barefort",
+      "description": "現在開発中。",
+      "tags": [
+        "C++",
+        "UnrealEngine"
+      ],
+      "image": "/uploads/barefort.png"
     }
   ],
   "design": [
     {
-      "id": "design-1",
-      "title": "Brand Identity",
-      "description": "企業ブランドのビジュアルアイデンティティデザイン",
-      "tags": ["Branding", "Logo Design"],
-      "image": null
+      "id": "chara1",
+      "title": "Character1",
+      "description": "",
+      "tags": [
+        "Blender",
+        "CG"
+      ],
+      "image": "/uploads/design_blender_chara1.png",
+      "images": []
     },
     {
-      "id": "design-2",
-      "title": "UI/UX Design",
-      "description": "ユーザー体験を重視したインターフェースデザイン",
-      "tags": ["UI Design", "UX Research"],
-      "image": null
+      "id": "chara2",
+      "title": "Character2",
+      "description": "",
+      "tags": [
+        "Blender",
+        "CG"
+      ],
+      "image": "/uploads/design_chara2.png",
+      "images": []
+    },
+    {
+      "id": "kosenfesLPdemo",
+      "title": "高専祭2024LP(demo)",
+      "description": "高専祭2024のランディングページのデモをデザインした。",
+      "tags": [
+        "Web"
+      ],
+      "image": "/uploads/design_kosenfeslpdraft.png",
+      "images": [
+        "/uploads/page.png"
+      ]
     }
   ],
   "music": [
     {
-      "id": "music-1",
-      "title": "Original Composition",
-      "description": "オリジナル楽曲の制作とアレンジ",
-      "tags": ["Composition", "Arrangement"],
-      "image": null
-    },
-    {
-      "id": "music-2",
-      "title": "Sound Design",
-      "description": "ゲームや映像作品のためのサウンドデザイン",
-      "tags": ["Sound Design", "Foley"],
-      "image": null
+      "id": "untitled1",
+      "title": "Untitled1",
+      "description": "オリジナル楽曲",
+      "tags": [
+        "Composition",
+        "Arrangement"
+      ],
+      "image": null,
+      "images": [],
+      "links": [
+        {
+          "label": "soundcloud",
+          "url": "https://soundcloud.com/tokoro-931516880/isshin_felm/s-GpXDQauTBpV?si=f5691c6bdfb04220a75a3498f069514a&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+        }
+      ]
     }
   ],
   "project": [
     {
-      "id": "project-1",
-      "title": "Portfolio Website",
-      "description": "このポートフォリオサイト自体の制作",
-      "tags": ["Three.js", "GSAP", "Web Design"],
-      "image": null
+      "title": "2023年度高専プロコン",
+      "image": "/uploads/develop-projects_msight.jpg",
+      "description": "13人チームのプロジェクトリーダーを担当",
+      "id": "procon2023"
     },
     {
-      "id": "project-2",
-      "title": "Open Source",
-      "description": "オープンソースプロジェクトへの貢献",
-      "tags": ["Open Source", "GitHub"],
-      "image": null
+      "id": "procon2024",
+      "title": "高専プロコン2024",
+      "description": "数十人規模、5チームのプロジェクトリーダーを担当",
+      "image": "/uploads/develop-projects_mamorun.jpg"
     }
   ]
 }

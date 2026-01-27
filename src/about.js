@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { initAudio, playSfx } from './audio-manager.js';
 
 const initPageMotion = () => {
   const page = document.querySelector('.about-page');
@@ -32,6 +33,47 @@ const initPageMotion = () => {
     );
 };
 
+const initMobilePanelMerge = () => {
+  const panels = Array.from(document.querySelectorAll('.about-panel'));
+  if (!panels.length) return;
+
+  const update = () => {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const bodyOnlyPanels = panels.filter((panel) =>
+      panel.classList.contains('about-panel--body-only')
+    );
+
+    bodyOnlyPanels.forEach((bodyPanel) => {
+      const { view, topic } = bodyPanel.dataset;
+      if (!view || !topic) return;
+      const targetPanel = panels.find(
+        (panel) =>
+          !panel.classList.contains('about-panel--body-only') &&
+          panel.dataset.view === view &&
+          panel.dataset.topic === topic
+      );
+      if (!targetPanel) return;
+
+      if (isMobile) {
+        if (!targetPanel.querySelector('.about-panel-body--merged')) {
+          const body = bodyPanel.querySelector('.about-panel-body');
+          if (!body) return;
+          const clone = body.cloneNode(true);
+          clone.classList.add('about-panel-body--merged');
+          targetPanel.appendChild(clone);
+        }
+      } else {
+        targetPanel
+          .querySelectorAll('.about-panel-body--merged')
+          .forEach((node) => node.remove());
+      }
+    });
+  };
+
+  update();
+  window.addEventListener('resize', update);
+};
+
 const initThreeBackground = () => {
   const container = document.querySelector('.about-three-canvas');
   if (!container) return;
@@ -44,7 +86,6 @@ const initThreeBackground = () => {
     0.1,
     200
   );
-  camera.position.set(0, 0.25, 3.6);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -58,6 +99,28 @@ const initThreeBackground = () => {
   controls.enablePan = false;
   controls.minDistance = 1.6;
   controls.maxDistance = 8;
+
+  const getCameraDistance = () => {
+    const width = window.innerWidth;
+    if (width <= 768) return 4.6;
+    if (width <= 1024) return 4.0;
+    return 3.6;
+  };
+
+  const applyCameraDistance = () => {
+    const distance = getCameraDistance();
+    const target = controls?.target ?? new THREE.Vector3();
+    const direction = camera.position.clone().sub(target);
+    if (direction.lengthSq() === 0) {
+      direction.set(0, 0.07, 1);
+    }
+    direction.normalize();
+    camera.position.copy(target.clone().add(direction.multiplyScalar(distance)));
+    controls.update();
+  };
+
+  camera.position.set(0, 0.25, 3.6);
+  applyCameraDistance();
 
   const panels = Array.from(
     document.querySelectorAll('.about-panel[data-view]')
@@ -212,7 +275,7 @@ const initThreeBackground = () => {
       model.position.x -= adjustedSize.x * 0.6;
 
       controls.target.set(0, adjustedSize.y * 0.5, 0);
-      controls.update();
+      applyCameraDistance();
       updateViewPanel();
     },
     undefined,
@@ -225,6 +288,7 @@ const initThreeBackground = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    applyCameraDistance();
   };
   window.addEventListener('resize', onResize);
   const tick = () => {
@@ -282,17 +346,59 @@ const initDragGuide = () => {
   document.addEventListener('pointercancel', onPointerUp, { passive: true });
 };
 
+const initDragSound = () => {
+  const page = document.querySelector('.about-page');
+  if (!page) return;
+
+  let isPointerDown = false;
+  let hasPlayed = false;
+  let lastPoint = null;
+  const threshold = 6;
+
+  const onPointerDown = (event) => {
+    isPointerDown = true;
+    hasPlayed = false;
+    lastPoint = { x: event.clientX, y: event.clientY };
+  };
+
+  const onPointerMove = (event) => {
+    if (!isPointerDown || !lastPoint || hasPlayed) return;
+    const dx = event.clientX - lastPoint.x;
+    const dy = event.clientY - lastPoint.y;
+    if (Math.hypot(dx, dy) >= threshold) {
+      playSfx('aboutDragStart');
+      hasPlayed = true;
+    }
+  };
+
+  const onPointerUp = () => {
+    isPointerDown = false;
+    lastPoint = null;
+  };
+
+  page.addEventListener('pointerdown', onPointerDown, { passive: true });
+  page.addEventListener('pointermove', onPointerMove, { passive: true });
+  page.addEventListener('pointerup', onPointerUp, { passive: true });
+  page.addEventListener('pointercancel', onPointerUp, { passive: true });
+};
+
 // ============================================
 // 初期化
 // ============================================
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
+    initAudio();
     initPageMotion();
+    initMobilePanelMerge();
     initThreeBackground();
     initDragGuide();
+    initDragSound();
   });
 } else {
+  initAudio();
   initPageMotion();
+  initMobilePanelMerge();
   initThreeBackground();
   initDragGuide();
+  initDragSound();
 }

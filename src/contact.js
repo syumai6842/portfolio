@@ -3,15 +3,18 @@ import './contact.css';
 import emailjs from '@emailjs/browser';
 import { gsap } from 'gsap';
 import { emailjsConfig } from './emailjs-config.js';
+import { initAudio } from './audio-manager.js';
 
 // ============================================
 // 初期化
 // ============================================
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
+    initAudio();
     initContactPage();
   });
 } else {
+  initAudio();
   initContactPage();
 }
 

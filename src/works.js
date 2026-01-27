@@ -1,6 +1,7 @@
 import './common.css';
 import './works.css';
 import { gsap } from 'gsap';
+import { initAudio, playSfx, setBgmHighCut } from './audio-manager.js';
 
 // ============================================
 // 作品データ
@@ -12,21 +13,24 @@ const fallbackWorksData = {
       title: 'Web Application',
       description: 'ReactとTypeScriptを使用したモダンなWebアプリケーション',
       tags: ['React', 'TypeScript', 'Node.js'],
-      image: null
+      image: null,
+      images: []
     },
     {
       id: 'dev-2',
       title: 'API Service',
       description: 'RESTful APIとGraphQLを組み合わせたバックエンドサービス',
       tags: ['GraphQL', 'Express', 'MongoDB'],
-      image: null
+      image: null,
+      images: []
     },
     {
       id: 'dev-3',
       title: 'Mobile App',
       description: 'React Nativeで開発したクロスプラットフォームアプリ',
       tags: ['React Native', 'Firebase'],
-      image: null
+      image: null,
+      images: []
     }
   ],
   design: [
@@ -35,14 +39,16 @@ const fallbackWorksData = {
       title: 'Brand Identity',
       description: '企業ブランドのビジュアルアイデンティティデザイン',
       tags: ['Branding', 'Logo Design'],
-      image: null
+      image: null,
+      images: []
     },
     {
       id: 'design-2',
       title: 'UI/UX Design',
       description: 'ユーザー体験を重視したインターフェースデザイン',
       tags: ['UI Design', 'UX Research'],
-      image: null
+      image: null,
+      images: []
     }
   ],
   music: [
@@ -51,14 +57,16 @@ const fallbackWorksData = {
       title: 'Original Composition',
       description: 'オリジナル楽曲の制作とアレンジ',
       tags: ['Composition', 'Arrangement'],
-      image: null
+      image: null,
+      images: []
     },
     {
       id: 'music-2',
       title: 'Sound Design',
       description: 'ゲームや映像作品のためのサウンドデザイン',
       tags: ['Sound Design', 'Foley'],
-      image: null
+      image: null,
+      images: []
     }
   ],
   project: [
@@ -67,7 +75,8 @@ const fallbackWorksData = {
       title: 'Portfolio Website',
       description: 'このポートフォリオサイト自体の制作',
       tags: ['Three.js', 'GSAP', 'Web Design'],
-      image: null
+      image: null,
+      images: []
     },
     {
       id: 'project-2',
@@ -94,6 +103,47 @@ function normalizeTags(tags) {
   return [];
 }
 
+function normalizeImages(item) {
+  const candidates = [
+    item?.images,
+    item?.relatedImages,
+    item?.gallery
+  ];
+  const images = candidates
+    .filter(Array.isArray)
+    .flat()
+    .filter((image) => typeof image === 'string' && image.trim())
+    .map((image) => image.trim());
+
+  const primaryImage = typeof item?.image === 'string' ? item.image.trim() : '';
+  if (primaryImage && !images.includes(primaryImage)) {
+    images.unshift(primaryImage);
+  }
+  return images;
+}
+
+function normalizeLinks(links) {
+  if (!Array.isArray(links)) return [];
+  return links
+    .map((link) => {
+      if (typeof link === 'string') {
+        return { label: link.replace(/^https?:\/\//, ''), url: link };
+      }
+      if (link && typeof link === 'object') {
+        const url = typeof link.url === 'string'
+          ? link.url
+          : (typeof link.href === 'string' ? link.href : '');
+        const label = typeof link.label === 'string'
+          ? link.label
+          : (typeof link.title === 'string' ? link.title : url);
+        if (!url) return null;
+        return { label, url };
+      }
+      return null;
+    })
+    .filter(Boolean);
+}
+
 function normalizeItem(item, fallbackId) {
   const title = typeof item?.title === 'string' ? item.title : '';
   if (!title) return null;
@@ -102,13 +152,18 @@ function normalizeItem(item, fallbackId) {
   const image = typeof item?.image === 'string'
     ? item.image
     : (typeof item?.imageUrl === 'string' ? item.imageUrl : null);
+  const images = normalizeImages(item);
+  const primaryImage = image || images[0] || null;
+  const links = normalizeLinks(item?.links || item?.relatedLinks);
 
   return {
     id: typeof item?.id === 'string' ? item.id : fallbackId,
     title,
     description,
     tags: normalizeTags(item?.tags),
-    image
+    image: primaryImage,
+    images,
+    links
   };
 }
 
@@ -196,17 +251,20 @@ async function showWorksList(category) {
   worksListContainer.setAttribute('aria-hidden', 'false');
   worksListContainer.classList.add('is-visible');
   worksListContainer.scrollTop = 0;
+  setWorksListMuffle(true);
 }
 
 // 作品アイテムを作成
 function createWorksItem(item) {
   const itemElement = document.createElement('div');
   itemElement.className = 'works-item';
+  itemElement.dataset.workId = item.id;
   
   // 画像の有無に応じてHTMLを生成
-  const image = item.image 
-    ? `<img src="${item.image}" alt="${item.title}" class="works-item-image">`
-    : `<div class="works-item-image"></div>`;
+  const thumbnail = item.images?.[0] || item.image;
+  const image = thumbnail 
+    ? `<img src="${thumbnail}" alt="${item.title}" class="works-item-image">`
+    : `<div class="works-item-image no-image">noimage</div>`;
   
   // タグのHTML生成
   const tags = item.tags.map(tag => 
@@ -222,11 +280,23 @@ function createWorksItem(item) {
       <div class="works-item-tags">${tags}</div>
     </div>
   `;
+
+  itemElement.addEventListener('click', () => {
+    openWorksDetailOverlay(item);
+  });
   
   return itemElement;
 }
 
 let lastExpandedCorner = null;
+let overlayClickHandlerAttached = false;
+let worksListMuffled = false;
+
+const setWorksListMuffle = (enabled) => {
+  if (worksListMuffled === enabled) return;
+  worksListMuffled = enabled;
+  setBgmHighCut(enabled, { frequency: 600, q: 0.7 });
+};
 
 // 作品一覧を閉じる
 function closeWorksList() {
@@ -236,6 +306,8 @@ function closeWorksList() {
   
   worksListContainer.classList.remove('is-visible');
   worksListContainer.setAttribute('aria-hidden', 'true');
+  setWorksListMuffle(false);
+  closeWorksDetailOverlay();
   
   if (worksPage) {
     worksPage.classList.remove('is-expanding');
@@ -258,10 +330,78 @@ function resetAllCurls() {
   }
 }
 
+function getOverlayElements() {
+  const overlay = document.querySelector('.works-detail-overlay');
+  if (!overlay) return null;
+  const title = overlay.querySelector('.works-detail-title');
+  const description = overlay.querySelector('.works-detail-description');
+  const gallery = overlay.querySelector('.works-detail-gallery');
+  const links = overlay.querySelector('.works-detail-links');
+  return { overlay, title, description, gallery, links };
+}
+
+function openWorksDetailOverlay(item) {
+  const elements = getOverlayElements();
+  if (!elements) return;
+  const { overlay, title, description, gallery, links } = elements;
+
+  title.textContent = item.title || '';
+  description.textContent = item.description || '';
+
+  gallery.innerHTML = '';
+  if (item.images?.length) {
+    item.images.forEach((src) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'works-detail-image';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = item.title;
+      wrapper.appendChild(img);
+      gallery.appendChild(wrapper);
+    });
+  } else {
+    const empty = document.createElement('div');
+    empty.className = 'works-detail-image no-image';
+    empty.textContent = 'noimage';
+    gallery.appendChild(empty);
+  }
+
+  links.innerHTML = '';
+  if (item.links?.length) {
+    item.links.forEach((link) => {
+      const anchor = document.createElement('a');
+      anchor.className = 'works-detail-link';
+      anchor.href = link.url;
+      anchor.target = '_blank';
+      anchor.rel = 'noreferrer';
+      anchor.textContent = link.label || link.url;
+      links.appendChild(anchor);
+    });
+  } else {
+    const empty = document.createElement('p');
+    empty.className = 'works-detail-empty';
+    empty.textContent = '関連リンクは準備中です。';
+    links.appendChild(empty);
+  }
+
+  overlay.classList.add('is-visible');
+  overlay.setAttribute('aria-hidden', 'false');
+}
+
+function closeWorksDetailOverlay() {
+  const elements = getOverlayElements();
+  if (!elements) return;
+  const { overlay } = elements;
+  if (!overlay.classList.contains('is-visible')) return;
+  overlay.classList.remove('is-visible');
+  overlay.setAttribute('aria-hidden', 'true');
+}
+
 // 作品一覧の初期化
 function initWorksList() {
   const worksListContainer = document.querySelector('.works-list-container');
   const worksCloseBtn = document.querySelector('.works-close-btn');
+  const worksDetailOverlay = document.querySelector('.works-detail-overlay');
   
   if (!worksListContainer) return;
   
@@ -275,6 +415,13 @@ function initWorksList() {
       closeWorksList();
     }
   });
+
+  if (worksDetailOverlay && !overlayClickHandlerAttached) {
+    worksDetailOverlay.addEventListener('click', () => {
+      closeWorksDetailOverlay();
+    });
+    overlayClickHandlerAttached = true;
+  }
 }
 
 // ============================================
@@ -449,6 +596,7 @@ function initPageCurlDrag() {
       const point = e.touches ? e.touches[0] : e;
       startX = point.clientX;
       startY = point.clientY;
+      playSfx('pageCurlStart');
 
       if (worksPage) {
         worksPage.classList.add('is-dragging');
@@ -726,6 +874,7 @@ function initPageCurlDrag() {
 // ============================================
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
+    initAudio();
     initWorksList();
     initPageCurlDrag();
     
@@ -737,6 +886,7 @@ if (document.readyState === 'loading') {
     }
   });
 } else {
+  initAudio();
   initWorksList();
   initPageCurlDrag();
   

@@ -3,11 +3,14 @@ import './hero.css';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { gsap } from 'gsap';
+import { initAudio, startLoopSfx, stopLoopSfx } from './audio-manager.js';
 
 // ============================================
 // Three.js セットアップ
 // ============================================
 const canvas = document.getElementById('c');
+
+initAudio();
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -255,8 +258,13 @@ const holdCursor = document.getElementById('hold-cursor');
 
 let holdPointerX = 0;
 let holdPointerY = 0;
+let holdSfxActive = false;
 
 function transitionToWorks() {
+  if (holdSfxActive) {
+    stopLoopSfx('enter');
+    holdSfxActive = false;
+  }
   // 別ページに遷移
   window.location.href = '/works.html';
 }
@@ -275,6 +283,11 @@ function onHeroPointerDown(e) {
   isHolding = true;
   holdStartTime = performance.now();
   updateHoldCursorPosition(e.clientX, e.clientY);
+
+  if (!holdSfxActive) {
+    startLoopSfx('enter');
+    holdSfxActive = true;
+  }
   
   if (zoomOverlay) {
     zoomOverlay.style.visibility = 'visible';
@@ -290,6 +303,10 @@ function onHeroPointerDown(e) {
 function onHeroPointerUp() {
   if (!isHolding) return;
   isHolding = false;
+  if (holdSfxActive) {
+    stopLoopSfx('enter');
+    holdSfxActive = false;
+  }
   const elapsed = performance.now() - holdStartTime;
   const progress = Math.min(elapsed / ZOOM_DURATION_MS, 1);
   if (progress >= 1) return;

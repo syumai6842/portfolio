@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: "USER/REPO"
+  repo: "syumai6842/portfolio"
   branch: "master"
 
 local_backend: true
@@ -26,6 +26,14 @@ collections:
               - { label: "Description", name: "description", widget: "text", required: false }
               - { label: "Tags", name: "tags", widget: "list", required: false }
               - { label: "Image", name: "image", widget: "image", required: false }
+              - { label: "Related Images", name: "images", widget: "list", required: false, field: { label: "Image", name: "image", widget: "image", required: false } }
+              - label: "Related Links"
+                name: "links"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Label", name: "label", widget: "string", required: false }
+                  - { label: "URL", name: "url", widget: "string" }
           - label: "Design"
             name: "design"
             widget: "list"
@@ -35,6 +43,14 @@ collections:
               - { label: "Description", name: "description", widget: "text", required: false }
               - { label: "Tags", name: "tags", widget: "list", required: false }
               - { label: "Image", name: "image", widget: "image", required: false }
+              - { label: "Related Images", name: "images", widget: "list", required: false, field: { label: "Image", name: "image", widget: "image", required: false } }
+              - label: "Related Links"
+                name: "links"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Label", name: "label", widget: "string", required: false }
+                  - { label: "URL", name: "url", widget: "string" }
           - label: "Music"
             name: "music"
             widget: "list"
@@ -44,6 +60,14 @@ collections:
               - { label: "Description", name: "description", widget: "text", required: false }
               - { label: "Tags", name: "tags", widget: "list", required: false }
               - { label: "Image", name: "image", widget: "image", required: false }
+              - { label: "Related Images", name: "images", widget: "list", required: false, field: { label: "Image", name: "image", widget: "image", required: false } }
+              - label: "Related Links"
+                name: "links"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Label", name: "label", widget: "string", required: false }
+                  - { label: "URL", name: "url", widget: "string" }
           - label: "Project"
             name: "project"
             widget: "list"
@@ -53,3 +77,11 @@ collections:
               - { label: "Description", name: "description", widget: "text", required: false }
               - { label: "Tags", name: "tags", widget: "list", required: false }
               - { label: "Image", name: "image", widget: "image", required: false }
+              - { label: "Related Images", name: "images", widget: "list", required: false, field: { label: "Image", name: "image", widget: "image", required: false } }
+              - label: "Related Links"
+                name: "links"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Label", name: "label", widget: "string", required: false }
+                  - { label: "URL", name: "url", widget: "string" }
