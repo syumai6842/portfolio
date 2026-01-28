@@ -21,12 +21,12 @@ const state = {
   bgmUsingWebAudio: false,
   bgmConfig: {
     src: '/audio/bgm.wav',
-    volume: 0.28,
+    volume: 0.7,
   },
   sfxConfig: {
-    pageCurlStart: { src: '/audio/sfx/page-curl-start.wav', volume: 0.7 },
-    aboutDragStart: { src: '/audio/sfx/about-drag-start.wav', volume: 0.6 },
-    enter: { src: '/audio/sfx/enter.wav', volume: 0.6 },
+    pageCurlStart: { src: '/audio/sfx/page-curl-start.wav', volume: 1 },
+    aboutDragStart: { src: '/audio/sfx/about-drag-start.wav', volume: 1 },
+    enter: { src: '/audio/sfx/enter.wav', volume: 1 },
   },
   sfxCache: new Map(),
   sfxLoops: new Map(),
