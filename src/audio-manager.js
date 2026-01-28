@@ -339,7 +339,9 @@ export const initAudio = (config = {}) => {
   }
 
   bindToggleButtons();
-  setBgmEnabled(false);
+  if (readStoredValue(STORAGE_KEYS.bgmEnabled) === null) {
+    setBgmEnabled(false);
+  }
   bindGestureStart();
   bindPagehide();
 
