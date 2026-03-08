@@ -102,6 +102,17 @@
   ],
   "music": [
     {
+      "id": "soulsampling",
+      "title": "SoulSample1",
+      "links": [
+        {
+          "url": "https://soundcloud.com/tokoro-931516880/soulsampling/s-omcnuN4BEEJ?si=4663a27051db49e3b39980e71997f8c2&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing",
+          "label": "Soundcloud"
+        }
+      ],
+      "description": "グリッドから外れたドラムとソウルのサンプルをミックスしました。"
+    },
+    {
       "id": "Collapse",
       "title": "Collapse",
       "links": [
@@ -109,12 +120,13 @@
           "label": "Soundcloud",
           "url": "https://soundcloud.com/tokoro-931516880/collapse/s-QWCZUYgwOvG?si=de8ee722df4f441f83616f14c89d4c3a&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
         }
-      ]
+      ],
+      "description": "ゲームのトレーラー用に作りました。"
     },
     {
       "id": "untitled1",
       "title": "Untitled1",
-      "description": "オリジナル楽曲",
+      "description": "オリジナル楽曲のビートとして作成しました。\nAメロからサビへのメリハリ感を意識しました。",
       "tags": [
         "Composition",
         "Arrangement"
@@ -136,7 +148,8 @@
           "url": "https://soundcloud.com/tokoro-931516880/untitled1/s-7cR6AL84fGx?si=f07ff8aab1f94e089c56eba40b964e17&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
         }
       ],
-      "id": "untitled2"
+      "id": "untitled2",
+      "description": "深海をイメージしたギターリフを活かすようにして作成しました。\nサビでドラムが独特なバウンスを演出します。"
     },
     {
       "id": "conversation",
@@ -147,7 +160,8 @@
           "label": "Soundcloud",
           "url": "https://soundcloud.com/tokoro-931516880/conversation/s-5ZPOC8Oaus2?si=8471f612b77f424a92c496428515b9fe&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
         }
-      ]
+      ],
+      "description": "ゲーム用に作成しました。\n雅楽にインスパイアされたフリーリズムなメタリックな音のシンセサイザーと奇妙なプラックが不安なイメージを演出します。"
     }
   ],
   "project": [
