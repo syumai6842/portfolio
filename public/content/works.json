@@ -91,6 +91,13 @@
       "images": [
         "/uploads/page.png"
       ]
+    },
+    {
+      "title": "名刺",
+      "image": "/uploads/omote.png",
+      "images": [
+        "/uploads/ura.png"
+      ]
     }
   ],
   "music": [
