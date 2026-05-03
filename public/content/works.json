@@ -49,12 +49,18 @@
     {
       "id": "barefort",
       "title": "Barefort",
-      "description": "現在開発中。",
+      "description": "現在開発中のPC向けスタンドアロンゲーム。\nUE5、blender、ableton live、figma等を使用して制作。\ntiktokは3ヶ月で7000+フォロワーを獲得",
       "tags": [
         "C++",
         "UnrealEngine"
       ],
-      "image": "/uploads/barefort.png"
+      "image": "/uploads/スクリーンショット-2026-03-03-033325-1.png",
+      "images": [
+        "/uploads/スクリーンショット-2026-05-03-18.18.02.png",
+        "/uploads/スクリーンショット-2026-03-03-033406-1.png",
+        "/uploads/barefort.png",
+        "/uploads/design_barefort_scapegoat_character.png"
+      ]
     }
   ],
   "design": [
@@ -97,6 +103,24 @@
       "image": "/uploads/omote.png",
       "images": [
         "/uploads/ura.png"
+      ],
+      "id": "namecard"
+    },
+    {
+      "id": "高専祭　ゲーム展示「何を捨てる？」",
+      "title": "高専祭展示「何を捨てる？」展",
+      "image": "/uploads/img_7321-1.png",
+      "description": "個人開発ゲーム「Barefort」の広報とテストプレイのため、高専祭で展示を行いました。プレイアブルデモに加え、哲学的ジレンマを体験できるアクティビティも複数制作しました。\n\n会場中央には4×4の巨大マスと巨大なコマを用いた「投げるオセロ」を設置しました。コマには金・人間関係・自己表現のマークが印刷されており、最終スコアは「自分が最も多く所持している種類のコマ」だけを数えて算出します。つまり、金のコマが最多なら金だけが得点になります。この設計により、マックス・ウェーバーの形式合理性と実質合理性の緊張関係を、目的（どの価値を取りに行くか）と手段（投げ方）の両面で勝つ必要があるゲームとして表現しました。一方で、親子連れでも楽しめるよう、シンプルに投げる遊びとしても成立するデザインにしています。\n\nまた、スクリーンではAIで生成した哲学者がトロッコ問題などの思考実験を議論する映像を上映しました。さらに入口には、愛・自立・勇気など価値観を象徴する言葉を「4つ残して捨てる」体験を設け、残った価値観から「あなたが哲学者だったらどんな顔か」を生成するWebアプリも制作しました\n",
+      "links": [
+        {
+          "url": "monosashi-receipt.vercel.app",
+          "label": "モノサシレシート(画像生成機能は停止中)"
+        }
+      ],
+      "images": [
+        "/uploads/image-12.png",
+        "/uploads/image-11.png",
+        "/uploads/img_7417-1.png"
       ]
     }
   ],
