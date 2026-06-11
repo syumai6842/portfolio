@@ -71,6 +71,12 @@
           "url": "https://store.steampowered.com/app/4127330/Barefort/"
         }
       ]
+    },
+    {
+      "id": "OpenCV",
+      "title": "OpenCVによる顔認証システム",
+      "description": "OpenCVとPythonを用いて顔認証システムを作成しました。",
+      "image": "/uploads/スクリーンショット-2026-06-11-17.22.36.png"
     }
   ],
   "design": [
